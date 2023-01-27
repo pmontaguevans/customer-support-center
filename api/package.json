@@ -1,0 +1,31 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "nodemon index.ts",
+    "start": "npm install && npm run serve",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Philip Montagu-Evans",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mongodb": "^4.13.0",
+    "mongoose": "^6.9.0",
+    "socket.io": "^4.5.4",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.4"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.16",
+    "@types/mongodb": "^4.0.7",
+    "@types/node": "^18.11.18",
+    "@types/socket.io": "^3.0.2",
+    "nodemon": "^2.0.20"
+  }
+}
