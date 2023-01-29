@@ -1,45 +1,41 @@
-import express, { Express, Request, Response } from "express";
+import express, { Express } from "express";
+import { Server } from "socket.io";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import http from "http";
-import { Server } from "socket.io";
+
+// routes
+import homeRouter from "./routes/home";
+import supportRouter from "./routes/support";
+import customerRouter from "./routes/customer";
 
 dotenv.config();
 const PORT = process.env.PORT;
+const DB: any = process.env.DB_NAME;
 
 const app: Express = express();
 const server = http.createServer(app);
 const io = new Server(server);
 
 app.use(express.json());
+app.use("/api/v1/home", homeRouter);
+app.use("/api/v1/admin", supportRouter);
+app.use("/api/v1/customer", customerRouter);
 
-app.get("/", (req: Request, res: Response) => {
-  res.send("<h1>Hello world</h1>");
-});
+mongoose.set("strictQuery", false); // Prepare for Mongoose 7
 
+import Agent from "./models/Agent";
+import Ticket from "./models/Ticket";
+
+main().catch((err) => console.log(err));
+async function main() {
+  await mongoose.connect(DB);
+}
 // TODO: refactor and integrate handshakes with client
 io.on("connection", (socket) => {
   console.log("Connection established");
 });
 
-// TODO: refactor
-
-// DeprecationWarning: Mongoose: the `strictQuery` option
-// will be switched back to `false` by default in Mongoose 7.
-mongoose.set("strictQuery", false);
-
-mongoose.connect(
-  "mongodb://localhost:27017/upcoming_db_name",
-  //@ts-ignore
-  // Added option to avoid deprecation warning
-  { useNewUrlParser: true },
-  () => {
-    console.log("Successfully connected to database");
-  }
-);
-
-// uncomment below when testing application and comment out line 7
-// const PORT = 4000;
 server.listen(PORT, () => {
   console.log(`⚡️[server]: listening on port ${PORT}`);
 });
