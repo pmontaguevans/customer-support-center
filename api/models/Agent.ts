@@ -1,20 +1,24 @@
 import mongoose from "mongoose";
-
 const Schema = mongoose.Schema;
 
-const AgentSchema = new Schema({
-  name: {
-    type: String,
-    required: true,
-    min: 2,
-    max: 50,
+export const AgentSchema = new Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+      min: [2, "Agent name must have 2 characters or more"],
+      max: [50, "Agent name cannot have more than 50 characters"],
+    },
+    ticketId: {
+      type: Schema.Types.ObjectId,
+      ref: "Ticket",
+      default: null,
+    },
   },
-  ticketId: {
-    type: Schema.Types.ObjectId,
-    ref: "Ticket",
-  },
-});
+  {
+    timestamps: true,
+  }
+);
 
-// Compile model from schema
 const Agent = mongoose.model("Agent", AgentSchema);
 export default Agent;
