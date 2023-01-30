@@ -16,6 +16,7 @@ const Agent = ({ agent, setName, updateAgentName, deleteAgent }: any) => {
         <td>
           <DeleteAgent onClick={(e: any) => deleteAgent(agent._id, e)} />
         </td>
+        <td>Active</td>
       </tr>
     </>
   );

@@ -3,6 +3,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import api from "../axios";
 import AddAgent from "./AddAgent";
 import Agent from "./Agent";
+import "../App.css";
 
 type Input = {
   name: string;
@@ -99,9 +100,10 @@ function AgentForm() {
         <table>
           <thead>
             <tr>
-              <th>Agent name</th>
-              <th>Update</th>
-              <th>Delete</th>
+              <th>Agent List</th>
+              <th></th>
+              <th></th>
+              <th>Status</th>
             </tr>
             {getAgents &&
               getAgents.map((agent: any, idx: number) => {

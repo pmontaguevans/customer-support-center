@@ -4,10 +4,6 @@ const Schema = mongoose.Schema;
 const TicketSchema = new Schema(
   new Schema(
     {
-      date: {
-        type: Date,
-        default: () => Date.now(),
-      },
       title: {
         type: String,
         required: true,
@@ -33,7 +29,7 @@ const TicketSchema = new Schema(
         max: 50,
       },
       productNo: {
-        type: Number,
+        type: String,
         required: true,
       },
       resolved: {

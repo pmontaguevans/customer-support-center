@@ -53,8 +53,6 @@ const Agents = ({ getAgents, setError, getAllAgents }: any) => {
             <td>
               <input onChange={(e) => setName(e.target.value)} />
               <button onClick={(e) => updateAgentName(agent, e)}>Update</button>
-            </td>
-            <td>
               <button onClick={(e) => deleteAgent(agent._id, e)}>Delete</button>
             </td>
           </tr>

@@ -33,6 +33,7 @@ app.use(cors());
 app.use(express.json());
 // app.use("/api/v1/home", homeRouter);
 app.use("/api/v1/agents", adminRouter);
+app.use("/api/v1/customer", customerRouter);
 // app.use("/api/v1/customer", customerRouter);
 app.use("api/v1", express.Router());
 
