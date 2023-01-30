@@ -3,6 +3,7 @@ import { createServer } from "http";
 import { Server } from "socket.io";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import cors from "cors";
 
 // routes
 import homeRouter from "./routes/home";
@@ -28,10 +29,12 @@ io.on("connection", (socket) => {
   console.log("Connection established");
 });
 
+app.use(cors());
 app.use(express.json());
-app.use("/api/v1/home", homeRouter);
-app.use("/api/v1/admin", adminRouter);
-app.use("/api/v1/customer", customerRouter);
+// app.use("/api/v1/home", homeRouter);
+app.use("/api/v1/agents", adminRouter);
+// app.use("/api/v1/customer", customerRouter);
+app.use("api/v1", express.Router());
 
 mongoose.set("strictQuery", false); // Prepare for Mongoose 7
 
