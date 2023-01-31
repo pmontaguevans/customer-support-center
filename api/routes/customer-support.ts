@@ -16,6 +16,18 @@ adminRouter.get("/", (req: Request, res: Response) => {
   });
 });
 
+adminRouter.get("/:id", (req: Request, res: Response) => {
+  Agent.findOne({ _id: req.params.id }, (err: any, agent: IAgent) => {
+    try {
+      res.status(200).send({ agent });
+    } catch (err: any) {
+      res.status(500).send({
+        message: err.message || "An error occured while retrieving agents.",
+      });
+    }
+  });
+});
+
 adminRouter.post("/", (req: Request, res: Response) => {
   const { name } = req.body;
 
