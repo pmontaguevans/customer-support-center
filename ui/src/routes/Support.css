@@ -1,0 +1,26 @@
+form {
+  position: relative;
+}
+.form__row {
+  /* position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: 65px 0 0 -335px; */
+  border: 1px solid #eee;
+  border-radius: 10px;
+  box-shadow: -0.5px 1px 4px 1px #eee;
+  padding: 50px;
+}
+.form__row label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form__row label:last-of-type {
+  align-items: baseline;
+}
+
+.form__row span {
+  width: 200px;
+}

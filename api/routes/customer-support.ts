@@ -64,7 +64,7 @@ adminRouter.put("/:id", (req: Request<{ id: string }>, res: Response) => {
   const { id } = req.params;
   const { name, ticketId } = req.body;
 
-  if (!name) {
+  if (!req.body) {
     return res.status(400).send({ message: "Cannot update with empty data" });
   }
 

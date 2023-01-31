@@ -3,12 +3,16 @@ import ReactDOM from "react-dom/client";
 import reportWebVitals from "./reportWebVitals";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App, { loader as rootLoader, action as rootAction } from "./App";
-import Agent, { loader as agentLoader } from "./components/Agent";
+import Agent, {
+  loader as agentLoader,
+  action as agentAction,
+} from "./components/Agent";
 import EditAgent, { action as editAction } from "./components/Edit";
 import { action as destroyAction } from "./components/Delete";
 import Index from "./components/Index";
 import ErrorPage from "./components/ErrorPage";
 import "./index.css";
+import Support, { action as ticketAction } from "./routes/Support";
 
 const router = createBrowserRouter([
   {
@@ -23,6 +27,7 @@ const router = createBrowserRouter([
         path: "agents/:agentId",
         element: <Agent />,
         loader: agentLoader,
+        action: agentAction,
       },
       {
         path: "agents/:agentId/edit",
@@ -35,6 +40,11 @@ const router = createBrowserRouter([
         action: destroyAction,
       },
     ],
+  },
+  {
+    path: "/support",
+    element: <Support />,
+    action: ticketAction,
   },
 ]);
 
