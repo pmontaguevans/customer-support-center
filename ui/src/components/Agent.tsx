@@ -62,7 +62,6 @@ export default function Agent() {
 
   const getAgent = async () => {
     const { data } = await api.get(`/agents/${agentId}`);
-    console.log("data", data);
     return setData(data);
   };
 
