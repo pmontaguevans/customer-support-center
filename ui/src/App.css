@@ -1,28 +1,214 @@
-table {
-  border-collapse: collapse;
-}
-th {
-  background-color: green;
-  color: white;
-}
-th,
-td {
-  text-align: center;
-  border: 1px solid black;
-  padding: 5px;
-}
-.geeks {
-  border-right: hidden;
-}
-.gfg {
-  border-collapse: separate;
-  border-spacing: 0 15px;
-}
 h1 {
-  color: green;
+  color: #111111;
 }
 
-form {
+.contact__details .form__edit button,
+.contact__details .form__destroy button {
+  background: transparent;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #f7f7f7;
+  box-shadow: 1px 1px 1px 0px #dacbcb;
+  width: 60px;
+}
+
+.contact__details .form__edit button {
+  color: #588fe8;
+}
+
+.contact__details .form__destroy button {
+  color: #d95860;
+  margin-left: 10px;
+}
+
+.contact__details .form__destroy button:hover {
+  transition: ease-in-out all 0.2s;
+  background: #d95860;
+  color: #f7f7f7;
+  border: 1px solid #d95860;
+  cursor: pointer;
+}
+
+.contact__details .form__edit button:hover {
+  transition: ease-in all 0.2s;
+  background: #588fe8;
+  color: #f7f7f7;
+  border: 1px solid #588fe8;
+  cursor: pointer;
+}
+
+.form__actions {
+  display: flex;
+  align-items: center;
+}
+
+.page {
+  height: 100vh;
+  display: flex;
+}
+
+.sidebar {
+  width: 400px;
+  background-color: #f7f7f7;
+}
+
+#detail {
+  margin-top: 1.5em;
+  margin-left: 5em;
+}
+
+.contact {
+  display: flex;
+}
+
+.contact img {
+  border-radius: 30px;
+}
+
+.contact__details {
+  margin-left: 40px;
+}
+
+.contact__details h1 {
+  display: flex;
+  align-items: center;
+  margin-top: 0;
+}
+
+.contact__details h1 form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.isActive {
+  background-color: #3a62f4;
+}
+
+nav ul {
+  text-decoration: none;
+  list-style: none;
+}
+
+nav ul li {
+  padding: 10px;
+}
+
+nav ul li:hover {
+  color: #fff;
+}
+
+nav ul li a {
+  padding: 10px;
   width: 100%;
-  padding: 20px;
+  border-radius: 5px;
+  color: #111111;
+}
+
+nav a.active {
+  color: #fff;
+  background: #3a62f4;
+  font-weight: 500;
+}
+
+nav ul a:visited,
+nav ul a:link,
+nav ul a:hover {
+  text-decoration: none;
+}
+
+nav ul a:hover {
+  color: #3a62f4;
+  background-color: #e3e3e3;
+}
+
+/* Edit.tsx */
+.form__row .input {
+  background: transparent;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #f7f7f7;
+  box-shadow: 1px 1px 1px 0px #dacbcb;
+  width: 200px;
+  margin-left: 200px;
+}
+
+.form__row button {
+  background: transparent;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #f7f7f7;
+  box-shadow: 1px 1px 1px 0px #dacbcb;
+  width: 60px;
+  cursor: pointer;
+}
+
+.form__row .edit {
+  color: #588fe8;
+}
+.form__row .cancel {
+  color: #111111;
+}
+
+#zero-state img {
+  border-radius: 2px;
+}
+
+hr {
+  border: 1px solid #f7f7f7;
+}
+
+.action__buttons {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.form__add {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form__add p {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form__add hr {
+  border: 0.5px solid #e3e3e3;
+  width: 100%;
+}
+
+.form__add .input {
+  background: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #f7f7f7;
+  box-shadow: 1px 1px 1px 0px #dacbcb;
+  width: 340px;
+}
+
+.form__add button {
+  width: 90%;
+  background: #3a62f4;
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #3a62f4;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+h3 {
+  padding-left: 50px;
+}
+
+h2 {
+  cursor: pointer;
+  text-align: center;
+}
+
+h2:hover {
+  text-decoration: underline;
 }
