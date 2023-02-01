@@ -43,8 +43,6 @@ function App() {
         className={navigation.state === "loading" ? "loading" : ""}
         id="detail"
       >
-        {/* <h1>status: {status.status}</h1> */}
-        <h2>active ticket: {status.hasActiveTicket}</h2>
         <Outlet context={{ setStatus, status }} />
       </div>
     </div>
