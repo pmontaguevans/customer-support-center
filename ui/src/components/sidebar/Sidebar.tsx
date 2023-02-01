@@ -5,18 +5,19 @@ import "./Sidebar.css";
 
 const Sidebar = ({ agents, status }: any) => {
   const navigate = useNavigate();
-  const [data, setData] = React.useState([]);
 
   const getAgents = async () => {
-    const { data } = await api.get("/agents");
-    setData(data.agents);
+    await api.get("/agents");
   };
   React.useEffect(() => {
     getAgents();
-  }, [status]);
+  }, [status.hasActiveTicket]);
+
   return (
     <div className="sidebar">
-      <h2 className="sidebar__heading2" onClick={() => navigate("/")}>Customer Support Center</h2>
+      <h2 className="sidebar__heading2" onClick={() => navigate("/")}>
+        Customer Support Center
+      </h2>
       <div>
         <Form className="form__add" method="post">
           <p>
@@ -48,7 +49,7 @@ const Sidebar = ({ agents, status }: any) => {
                 >
                   {agent.name ? <>{agent.name}</> : <i>No Name</i>}
                 </NavLink>
-                <span>{agent.ticketId ? "ongoing" : "available"}</span>
+                <span>{agent.status ? status.status : "Available"}</span>
               </li>
             ))}
           </ul>

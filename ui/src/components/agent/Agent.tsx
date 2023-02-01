@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { useLoaderData, Form, useOutletContext } from "react-router-dom";
 import Select from "react-select";
 import api from "../../axios";
 import "./Agent.css";
 
-export async function loader({ params }: any) {
+export async function loader({ params, status }: any) {
   const { data }: any = await api.get(`/agents/${params.agentId}`);
   const { data: tickets } = await api.get("/customer");
 
@@ -13,9 +13,7 @@ export async function loader({ params }: any) {
 
 export async function action({ request, params }: any) {
   let formData = await request.formData();
-  return await api.put(`/agents/${params.agentId}`, {
-    ticketId: formData.get("favorite") === "true",
-  });
+  return await api.put(`/agents/${params.agentId}`, formData);
 }
 
 type TicketOptions = {
@@ -26,27 +24,20 @@ type TicketOptions = {
 export default function Agent() {
   const { setStatus, status }: any = useOutletContext();
   const { agent, tickets, agentId }: any = useLoaderData();
-  const contact = {
-    avatar: "https://placekitten.com/g/200/200",
-  };
-  const [state, setState]: any = useState({ selectedTicket: null });
-  const [data, setData] = useState(null);
-  const [defaultValue, setDefaultValue]: any = useState("Select");
-  const handleChange = async (option: TicketOptions) => {
-    setState({
-      selectedTicket: option.title,
-    });
 
+  const contact = {
+    avatar:
+      "https://this-person-does-not-exist.com/img/avatar-44a1bac28bcab65d7a9f5f6d0067deea.jpg",
+  };
+  const handleChange = async (option: TicketOptions) => {
     const updatedData: any = {
       name: agent.name,
       ticketId: option._id,
+      status: true,
     };
 
-    await api
-      .put(`/agents/${agentId}`, updatedData)
-      .then(() => api.get("/agents"));
-
-    setStatus(option._id);
+    await api.put(`/agents/${agentId}`, updatedData);
+    setStatus({ status: "Ongoing", hasActiveTicket: true });
   };
 
   const resolveTicket = async () => {
@@ -57,35 +48,32 @@ export default function Agent() {
     await api
       .put(`/agents/${agentId}`, updatedData)
       .then(() => api.get(`/agents/${agentId}`));
-    setState({ selectedTicket: null });
-    setStatus(null);
-    setDefaultValue("Select");
+
+    setStatus({ status: "Available", hasActiveTicket: false });
   };
 
   const getAgent = async () => {
-    const { data } = await api.get(`/agents/${agentId}`);
-    return setData(data);
+    return await api.get(`/agents/${agentId}`);
   };
 
   React.useEffect(() => {
-    if (agent.ticketId) {
-      const selected = tickets.tickets.find(
-        (ticket: any) => ticket._id === agent.ticketId
-      );
-      setState({ selectedTicket: selected.title });
+    if (agent.status) {
+      setStatus({ status: "Ongoing", hasActiveTicket: true });
+    } else {
+      setStatus({ status: "Available", hasActiveTicket: false });
     }
   }, []);
 
   React.useEffect(() => {
     getAgent();
-  }, [status]);
+  }, [agent.status, status.hasActiveTicket]);
 
   return (
     <>
       <h1>Agent details</h1>
       <div className="agent">
         <div>
-          <img key={contact.avatar} src={contact.avatar} />
+          <img alt="Some_alt_text" key={contact.avatar} src={contact.avatar} />
         </div>
         <div className="agent__details">
           <div className="contact__details--status">
@@ -93,7 +81,7 @@ export default function Agent() {
               {agent ? <>{agent.name}</> : <i>No Name</i>}{" "}
             </h2>
 
-            <span>{status ? `Ongoing` : "Available"}</span>
+            <span>{agent.status ? status.status : "Available"}</span>
           </div>
           <div className="form__actions">
             <div className="form__actions--container">
@@ -116,9 +104,8 @@ export default function Agent() {
                   getOptionValue={(ticket: TicketOptions) => ticket._id}
                   //@ts-ignore
                   onChange={handleChange}
-                  isDisabled={!!status}
+                  isDisabled={status.hasActiveTicket}
                   // value={status ? state.selectedTicket : defaultValue}
-                  defaultSelectValue={defaultValue}
                 />
               </div>
             </div>
@@ -126,7 +113,7 @@ export default function Agent() {
 
           <div className="contact__details--btn-container">
             <button
-              disabled={!status}
+              disabled={!status.hasActiveTicket}
               className="contact__details--resolve-btn"
               onClick={resolveTicket}
             >

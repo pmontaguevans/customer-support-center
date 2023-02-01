@@ -63,29 +63,43 @@ adminRouter.post("/", (req: Request, res: Response) => {
 adminRouter.put("/:id", (req: Request<{ id: string }>, res: Response) => {
   const { id } = req.params;
   const { name, ticketId } = req.body;
+  let agentStatus: boolean = false;
+
+  if (req.body.ticketId) {
+    agentStatus = true;
+  }
 
   if (!req.body) {
     return res.status(400).send({ message: "Cannot update with empty data" });
   }
 
-  const updateAgent: IAgent = {
+  let updateAgent: IAgent;
+
+  updateAgent = {
     name,
     ticketId: ticketId || null,
+    status: agentStatus,
   };
 
-  Agent.findOneAndUpdate({ _id: id }, updateAgent, (err: any, data: IAgent) => {
-    try {
-      if (!data) {
-        res.status(404).send({
-          message: "Agent not found..",
-        });
-      } else {
-        res.send({ message: "Agent was successfully updated." });
+  Agent.findOneAndUpdate(
+    { _id: { $gte: id } },
+    updateAgent,
+    (err: any, data: IAgent) => {
+      try {
+        if (!data) {
+          res.status(404).send({
+            message: "Agent not found..",
+          });
+        } else {
+          res.send({ data, message: "Agent was successfully updated." });
+        }
+      } catch (err) {
+        res
+          .status(500)
+          .send({ message: "Error updating agent with id: " + id });
       }
-    } catch (err) {
-      res.status(500).send({ message: "Error updating agent with id: " + id });
     }
-  });
+  );
 });
 
 adminRouter.delete("/:id", (req: Request<{ id: string }>, res: Response) => {

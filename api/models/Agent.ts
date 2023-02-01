@@ -14,6 +14,10 @@ export const AgentSchema = new Schema(
       ref: "Ticket",
       default: null,
     },
+    status: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,

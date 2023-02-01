@@ -26,10 +26,14 @@ export async function loader() {
 }
 function App() {
   const navigation = useNavigation();
-  const [status, setStatus] = React.useState(null);
+  const [status, setStatus] = React.useState({
+    status: "Available",
+    hasActiveTicket: null,
+  });
 
   const { agents }: any = useLoaderData();
 
+  React.useEffect(() => {}, [status]);
   return (
     <div className="page">
       <Sidebar agents={agents} status={status} />
@@ -37,6 +41,8 @@ function App() {
         className={navigation.state === "loading" ? "loading" : ""}
         id="detail"
       >
+        {/* <h1>status: {status.status}</h1> */}
+        <h2>active ticket: {status.hasActiveTicket}</h2>
         <Outlet context={{ setStatus, status }} />
       </div>
     </div>
