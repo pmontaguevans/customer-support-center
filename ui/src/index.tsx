@@ -6,7 +6,7 @@ import App, { loader as rootLoader, action as rootAction } from "./App";
 import Agent, {
   loader as agentLoader,
   action as agentAction,
-} from "./components/Agent";
+} from "./components/agent/Agent";
 import EditAgent, { action as editAction } from "./components/Edit";
 import { action as destroyAction } from "./components/Delete";
 import Index from "./components/Index";

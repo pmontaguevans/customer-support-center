@@ -1,5 +1,6 @@
 h1 {
   color: #111111;
+  text-decoration: underline;
 }
 
 .contact__details .form__edit button,
@@ -38,27 +39,30 @@ h1 {
 }
 
 .form__actions {
-  display: flex;
-  align-items: center;
+  margin-bottom: 20px;
 }
+
+/* .form__actions div {
+  display: flex;
+} */
 
 .page {
   height: 100vh;
   display: flex;
 }
 
-.sidebar {
-  width: 400px;
-  background-color: #f7f7f7;
+#detail {
+  width: 100%;
+  padding-left: 60px;
 }
 
-#detail {
-  margin-top: 1.5em;
-  margin-left: 5em;
+#detail h1 {
+  padding-bottom: 40px;
 }
 
 .contact {
   display: flex;
+  position: relative;
 }
 
 .contact img {
@@ -79,47 +83,6 @@ h1 {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.isActive {
-  background-color: #3a62f4;
-}
-
-nav ul {
-  text-decoration: none;
-  list-style: none;
-}
-
-nav ul li {
-  padding: 10px;
-}
-
-nav ul li:hover {
-  color: #fff;
-}
-
-nav ul li a {
-  padding: 10px;
-  width: 100%;
-  border-radius: 5px;
-  color: #111111;
-}
-
-nav a.active {
-  color: #fff;
-  background: #3a62f4;
-  font-weight: 500;
-}
-
-nav ul a:visited,
-nav ul a:link,
-nav ul a:hover {
-  text-decoration: none;
-}
-
-nav ul a:hover {
-  color: #3a62f4;
-  background-color: #e3e3e3;
 }
 
 /* Edit.tsx */
@@ -154,6 +117,10 @@ nav ul a:hover {
   border-radius: 2px;
 }
 
+#zero-state {
+  text-align: center;
+}
+
 hr {
   border: 1px solid #f7f7f7;
 }
@@ -163,52 +130,15 @@ hr {
   justify-content: flex-end;
 }
 
-.form__add {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.form__add p {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.form__add hr {
-  border: 0.5px solid #e3e3e3;
-  width: 100%;
-}
-
-.form__add .input {
-  background: #fff;
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #f7f7f7;
-  box-shadow: 1px 1px 1px 0px #dacbcb;
-  width: 340px;
-}
-
-.form__add button {
-  width: 90%;
-  background: #3a62f4;
-  color: #fff;
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #3a62f4;
-  cursor: pointer;
-  font-weight: 600;
-}
-
-h3 {
-  padding-left: 50px;
-}
-
-h2 {
-  cursor: pointer;
+h3,
+.no__agents {
   text-align: center;
 }
 
 h2:hover {
   text-decoration: underline;
+}
+
+.loading {
+  background-color: rgba(248, 248, 248, 0.5);
 }

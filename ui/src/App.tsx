@@ -6,7 +6,7 @@ import {
   redirect,
 } from "react-router-dom";
 import api from "./axios";
-import Sidebar from "./components/Sidebar";
+import Sidebar from "./components/sidebar/Sidebar";
 import "./App.css";
 
 export async function action({ request }: any) {

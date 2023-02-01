@@ -2,14 +2,21 @@ form {
   position: relative;
 }
 .form__row {
-  /* position: absolute;
-  top: 50%;
-  left: 50%;
-  margin: 65px 0 0 -335px; */
   border: 1px solid #eee;
   border-radius: 10px;
   box-shadow: -0.5px 1px 4px 1px #eee;
   padding: 50px;
+  max-width: 400px;
+}
+
+.form__row p {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form__row p.action__buttons {
+  flex-direction: column;
 }
 .form__row label {
   display: flex;

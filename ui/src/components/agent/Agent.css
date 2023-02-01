@@ -1,0 +1,47 @@
+.contact__details--heading2 {
+  text-align: left;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.form__actions {
+  display: flex;
+  justify-content: space-between;
+  width: 400px;
+}
+
+.form {
+  flex-direction: row;
+  display: flex;
+}
+
+.form__actions .form__actions--container {
+  flex-direction: column;
+}
+.contact__details--actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.contact__details--status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.contact__details--status span {
+  font-style: italic;
+}
+
+.contact__details--btn-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.contact__details--resolve-btn {
+  background: transparent;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #f7f7f7;
+  box-shadow: 1px 1px 1px 0px #dacbcb;
+  cursor: pointer;
+}
