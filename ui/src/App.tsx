@@ -33,7 +33,9 @@ function App() {
 
   const { agents }: any = useLoaderData();
 
-  React.useEffect(() => {}, [status]);
+  React.useEffect(() => {
+    console.log(status);
+  }, [status]);
   return (
     <div className="page">
       <Sidebar agents={agents} status={status} />
