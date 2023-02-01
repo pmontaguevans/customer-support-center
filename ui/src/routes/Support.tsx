@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, useLoaderData, redirect, useNavigate } from "react-router-dom";
+import { Form, redirect, useNavigate } from "react-router-dom";
 import api from "../axios";
 import "../App.css";
 import "./Support.css";
@@ -7,8 +7,8 @@ import "./Support.css";
 export async function action({ request }: any) {
   const formData = await request.formData();
   const updates = Object.fromEntries(formData);
-  await api.post("/customer", updates);
-  return redirect(`/support`);
+  const { data } = await api.post("/customer", updates);
+  return redirect(`/t/${data._id}`);
 }
 
 // export async function loader() {
@@ -25,7 +25,7 @@ const Support = () => {
 
   return (
     <Form method="post" id="customer-form">
-      <h1 className="">Support ticket</h1>
+      <h1 onClick={() => navigate("/")}>Support ticket</h1>
       <div className="form__row">
         <div>
           <p>
