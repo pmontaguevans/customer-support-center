@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useLoaderData, Form, useOutletContext } from "react-router-dom";
 import Select from "react-select";
 import api from "../../axios";
@@ -24,7 +24,6 @@ type TicketOptions = {
 export default function Agent() {
   const { setStatus, status }: any = useOutletContext();
   const { agent, tickets, agentId }: any = useLoaderData();
-
   const contact = {
     avatar:
       "https://this-person-does-not-exist.com/img/avatar-44a1bac28bcab65d7a9f5f6d0067deea.jpg",
@@ -62,6 +61,7 @@ export default function Agent() {
     } else {
       setStatus({ status: "Available", hasActiveTicket: false });
     }
+    getAgent();
   }, []);
 
   React.useEffect(() => {
@@ -81,7 +81,7 @@ export default function Agent() {
               {agent ? <>{agent.name}</> : <i>No Name</i>}{" "}
             </h2>
 
-            <span>{agent.status ? status.status : "Available"}</span>
+            <span>{status.hasActiveTicket ? "Ongoing" : "Available"}</span>
           </div>
           <div className="form__actions">
             <div className="form__actions--container">
@@ -97,6 +97,8 @@ export default function Agent() {
             </div>
             <div>
               <h4>Assign agent to ticket</h4>
+
+              {/* Value should be set to Select after ticket is resolved */}
               <div className="form__select">
                 <Select<TicketOptions>
                   options={tickets.tickets}
@@ -105,7 +107,6 @@ export default function Agent() {
                   //@ts-ignore
                   onChange={handleChange}
                   isDisabled={status.hasActiveTicket}
-                  // value={status ? state.selectedTicket : defaultValue}
                 />
               </div>
             </div>

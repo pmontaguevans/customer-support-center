@@ -11,6 +11,7 @@ const Sidebar = ({ agents, status }: any) => {
   };
   React.useEffect(() => {
     getAgents();
+    console.log("status", status);
   }, [status.hasActiveTicket]);
 
   return (
@@ -49,7 +50,9 @@ const Sidebar = ({ agents, status }: any) => {
                 >
                   {agent.name ? <>{agent.name}</> : <i>No Name</i>}
                 </NavLink>
-                <span>{agent.status ? status.status : "Available"}</span>
+                <span>
+                  {status.hasActiveTicket ? status.status : "Available"}
+                </span>
               </li>
             ))}
           </ul>
