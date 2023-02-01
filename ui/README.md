@@ -1,46 +1,56 @@
-# Getting Started with Create React App
+# Customer Support Center
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This application is aimed to showcase a customer support center where customers can return products through a form, customer support can add, edit and remove Support Agents and be able to assign Support agents to a specific case.
 
-## Available Scripts
+## Tech stack
 
-In the project directory, you can run:
+Mern stack with Typescript is used.
+TypeScript, NodeJS w/ express, React & MongoDB
+
+## Run the application (Backend is run on port 4000 and the UI on port 3000)
+
+First of all you need to add env files to corresponding folders. In the env file in the api folder, add the following properties:
+
+### `PORT=4000`
+
+### `DB_NAME=mongodb+srv://admin:admin@cluster0.vjwtamg.mongodb.net/customer-support-center?retryWrites=true&w=majority`
+
+then run the following command:
+
+### `npm run dev`
+
+Secondly, add the following properties in the env file in UI folder:
+
+### `REACT_APP_API_BASE_URL=http://localhost:4000/api/v1`
+
+### `APP_BASE_URL=http://localhost:3000/`
+
+then run the following command:
 
 ### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Navigation
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Actor (Customer Support):
+When the app is running correctly, you should be prompted with the index page and a sidebar menu.
+From the sidebar menu you can add Support Agents which will be shown as a list below. After adding your first agent
+you'll be redirected to that agent's detail page. From there you can do multiple actions - edit, delete and assign
+an agent to a ticket. When an agent is assigned to a ticket, the resolve button will be enabled and if pressed, the 
+agent has resolved it and is available for the next ticket.
 
-### `npm test`
+Actor (Customer):
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Navigate to http://localhost:3000/support
+- From there you will be prompted with a form for returning products
+- When clicking "post ticket" button you will be redirected to a thank you page.
 
-### `npm run build`
+Actor (Support Agent / Customer Support):
+Tickets will be added to the dropdown list
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Todo
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Clear inputs,
+Default select value after resolved is done
+Remove ticket from ticket list
+Unit tests
+Type variables better
