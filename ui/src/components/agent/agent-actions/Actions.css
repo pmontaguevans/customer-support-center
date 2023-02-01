@@ -1,0 +1,13 @@
+#agent-form .form__row {
+  border: 1px solid #eee;
+  border-radius: 10px;
+  box-shadow: -0.5px 1px 4px 1px #eee;
+  padding: 50px;
+  max-width: 400px;
+}
+
+#agent-form .form__row p.action__buttons {
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: initial;
+}

@@ -1,12 +1,6 @@
-import {
-  Form,
-  useLoaderData,
-  redirect,
-  useNavigate,
-  useFetcher,
-} from "react-router-dom";
-import api from "../axios";
-import "../App.css";
+import { Form, useLoaderData, redirect, useNavigate } from "react-router-dom";
+import api from "../../../axios";
+import "./Actions.css";
 
 async function updateAgent(agentId: any, updates: any) {
   try {

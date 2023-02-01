@@ -83,7 +83,7 @@ export default function Agent() {
   return (
     <>
       <h1>Agent details</h1>
-      <div className="contact">
+      <div className="agent">
         <div>
           <img key={contact.avatar} src={contact.avatar} />
         </div>

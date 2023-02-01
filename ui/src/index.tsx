@@ -7,8 +7,8 @@ import Agent, {
   loader as agentLoader,
   action as agentAction,
 } from "./components/agent/Agent";
-import EditAgent, { action as editAction } from "./components/Edit";
-import { action as destroyAction } from "./components/Delete";
+import EditAgent, { action as editAction } from "./components/agent/agent-actions/Edit";
+import { action as destroyAction } from "./components/agent/agent-actions/Delete";
 import Index from "./components/Index";
 import ErrorPage from "./components/ErrorPage";
 import "./index.css";
