@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Index() {
   return (
-    <div>
+    <div className="zero__state--index">
       <div>
         <p id="zero-state">
           <img

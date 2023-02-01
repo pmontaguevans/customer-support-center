@@ -87,7 +87,7 @@ export default function Agent() {
         <div>
           <img key={contact.avatar} src={contact.avatar} />
         </div>
-        <div className="contact__details">
+        <div className="agent__details">
           <div className="contact__details--status">
             <h2 className="contact__details--heading2">
               {agent ? <>{agent.name}</> : <i>No Name</i>}{" "}
@@ -95,7 +95,6 @@ export default function Agent() {
 
             <span>{status ? `Ongoing` : "Available"}</span>
           </div>
-          {/* <div className="contact__details--actions"></div> */}
           <div className="form__actions">
             <div className="form__actions--container">
               <h4>Actions</h4>

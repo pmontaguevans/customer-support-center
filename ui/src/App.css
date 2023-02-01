@@ -3,41 +3,6 @@ h1 {
   text-decoration: underline;
 }
 
-.contact__details .form__edit button,
-.contact__details .form__destroy button {
-  background: transparent;
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #f7f7f7;
-  box-shadow: 1px 1px 1px 0px #dacbcb;
-  width: 60px;
-}
-
-.contact__details .form__edit button {
-  color: #588fe8;
-}
-
-.contact__details .form__destroy button {
-  color: #d95860;
-  margin-left: 10px;
-}
-
-.contact__details .form__destroy button:hover {
-  transition: ease-in-out all 0.2s;
-  background: #d95860;
-  color: #f7f7f7;
-  border: 1px solid #d95860;
-  cursor: pointer;
-}
-
-.contact__details .form__edit button:hover {
-  transition: ease-in all 0.2s;
-  background: #588fe8;
-  color: #f7f7f7;
-  border: 1px solid #588fe8;
-  cursor: pointer;
-}
-
 .form__actions {
   margin-bottom: 20px;
 }
@@ -56,6 +21,14 @@ h1 {
   padding-left: 60px;
 }
 
+#detail .zero__state--index {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  flex-direction: column;
+}
+
 #detail h1 {
   padding-bottom: 40px;
 }
@@ -65,25 +38,21 @@ h1 {
   position: relative;
 }
 
-.contact img {
-  border-radius: 30px;
-}
-
-.contact__details {
+/* .contact__details {
   margin-left: 40px;
-}
+} */
 
-.contact__details h1 {
+/* .contact__details h1 {
   display: flex;
   align-items: center;
   margin-top: 0;
-}
+} */
 
-.contact__details h1 form {
+/* .contact__details h1 form {
   display: flex;
   align-items: center;
   justify-content: center;
-}
+} */
 
 /* Edit.tsx */
 .form__row .input {

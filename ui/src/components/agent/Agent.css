@@ -17,6 +17,11 @@
 .form__actions .form__actions--container {
   flex-direction: column;
 }
+
+.agent__details {
+  margin-left: 40px;
+}
+
 .contact__details--actions {
   display: flex;
   justify-content: space-between;
@@ -46,6 +51,15 @@
   cursor: pointer;
 }
 
+.form button {
+  background: transparent;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #f7f7f7;
+  box-shadow: 1px 1px 1px 0px #dacbcb;
+  cursor: pointer;
+}
+
 .agent {
   position: relative;
   display: flex;
@@ -54,4 +68,8 @@
   padding: 40px;
   border-radius: 10px;
   box-shadow: 1px 1px 2px 2px #eee;
+}
+
+.agent img {
+  border-radius: 30px;
 }

@@ -11,3 +11,38 @@
   justify-content: flex-end;
   flex-direction: initial;
 }
+
+.agent__details .form__edit button,
+.agent__details .form__destroy button {
+  background: transparent;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #f7f7f7;
+  box-shadow: 1px 1px 1px 0px #dacbcb;
+  width: 60px;
+}
+
+.agent__details .form__edit button {
+  color: #588fe8;
+}
+
+.agent__details .form__destroy button {
+  color: #d95860;
+  margin-left: 10px;
+}
+
+.agent__details .form__destroy button:hover {
+  transition: ease-in-out all 0.2s;
+  background: #d95860;
+  color: #f7f7f7;
+  border: 1px solid #d95860;
+  cursor: pointer;
+}
+
+.agent__details .form__edit button:hover {
+  transition: ease-in all 0.2s;
+  background: #588fe8;
+  color: #f7f7f7;
+  border: 1px solid #588fe8;
+  cursor: pointer;
+}
