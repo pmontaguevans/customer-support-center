@@ -6,9 +6,8 @@ import dotenv from "dotenv";
 import cors from "cors";
 
 // routes
-import homeRouter from "./routes/home";
 import adminRouter from "./routes/customer-support";
-import customerRouter from "./routes/customer";
+import ticketRouter from "./routes/tickets";
 
 dotenv.config();
 
@@ -25,16 +24,14 @@ const server = createServer(app);
 const io = new Server(server);
 
 // TODO: refactor and integrate handshakes with client
-io.on("connection", (socket) => {
-  console.log("Connection established");
-});
+// io.on("connection", (socket) => {
+//   console.log("Connection established");
+// });
 
 app.use(cors());
 app.use(express.json());
-// app.use("/api/v1/home", homeRouter);
 app.use("/api/v1/agents", adminRouter);
-app.use("/api/v1/customer", customerRouter);
-// app.use("/api/v1/customer", customerRouter);
+app.use("/api/v1/tickets", ticketRouter);
 app.use("api/v1", express.Router());
 
 mongoose.set("strictQuery", false); // Prepare for Mongoose 7

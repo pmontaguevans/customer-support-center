@@ -1,12 +1,12 @@
-import React, { useRef } from "react";
+import React from "react";
 import { useLoaderData, Form, useOutletContext } from "react-router-dom";
 import Select from "react-select";
 import api from "../../axios";
 import "./Agent.css";
 
-export async function loader({ params, status }: any) {
+export async function loader({ params }: any) {
   const { data }: any = await api.get(`/agents/${params.agentId}`);
-  const { data: tickets } = await api.get("/customer");
+  const { data: tickets } = await api.get("/tickets");
 
   return { agent: data.agent, tickets, agentId: params.agentId };
 }
@@ -24,9 +24,12 @@ type TicketOptions = {
 export default function Agent() {
   const { setStatus, status }: any = useOutletContext();
   const { agent, tickets, agentId }: any = useLoaderData();
+  const [ticketId, setTicketId]: any = React.useState(null);
+  const [ticketList, setTicketList]: any = React.useState(tickets);
+
   const contact = {
     avatar:
-      "https://this-person-does-not-exist.com/img/avatar-44a1bac28bcab65d7a9f5f6d0067deea.jpg",
+      "https://this-person-does-not-exist.com/img/avatar-d0412740e4eb47cd45d4769daf900ebd.jpg",
   };
   const handleChange = async (option: TicketOptions) => {
     const updatedData: any = {
@@ -35,11 +38,16 @@ export default function Agent() {
       status: true,
     };
 
+    setTicketId(option._id);
+
     await api.put(`/agents/${agentId}`, updatedData);
     setStatus({ status: "Ongoing", hasActiveTicket: true });
   };
 
   const resolveTicket = async () => {
+    const tickets = await api.delete(`/tickets/${ticketId}`);
+    setTicketList(tickets);
+
     const updatedData: any = {
       name: agent.name,
       ticketId: null,
@@ -48,11 +56,16 @@ export default function Agent() {
       .put(`/agents/${agentId}`, updatedData)
       .then(() => api.get(`/agents/${agentId}`));
 
+    await getTickets();
     setStatus({ status: "Available", hasActiveTicket: false });
   };
 
   const getAgent = async () => {
-    return await api.get(`/agents/${agentId}`);
+    await api.get(`/agents/${agentId}`);
+  };
+
+  const getTickets = async () => {
+    await api.get(`/tickets`);
   };
 
   React.useEffect(() => {
@@ -66,7 +79,8 @@ export default function Agent() {
 
   React.useEffect(() => {
     getAgent();
-  }, [agent.status, status.hasActiveTicket]);
+    getTickets();
+  }, [agent.status, status.hasActiveTicket, tickets]);
 
   return (
     <>
@@ -101,7 +115,7 @@ export default function Agent() {
               {/* Value should be set to Select after ticket is resolved */}
               <div className="form__select">
                 <Select<TicketOptions>
-                  options={tickets.tickets}
+                  options={ticketList.tickets}
                   getOptionLabel={(ticket: TicketOptions) => ticket.title}
                   getOptionValue={(ticket: TicketOptions) => ticket._id}
                   //@ts-ignore

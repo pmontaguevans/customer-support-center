@@ -1,9 +1,9 @@
 import express, { Request, Response } from "express";
 import Ticket from "../models/Ticket";
 
-const customerRouter = express.Router();
+const ticketRouter = express.Router();
 
-customerRouter.get("/", (req: Request, res: Response) => {
+ticketRouter.get("/", (req: Request, res: Response) => {
   Ticket.find({}, (err: any, tickets: any[]) => {
     try {
       res.status(200).send({ tickets });
@@ -15,7 +15,7 @@ customerRouter.get("/", (req: Request, res: Response) => {
   });
 });
 
-customerRouter.post("/", (req: Request, res: Response) => {
+ticketRouter.post("/", (req: Request, res: Response) => {
   const {
     title,
     description,
@@ -63,7 +63,7 @@ customerRouter.post("/", (req: Request, res: Response) => {
   });
 });
 
-customerRouter.delete("/:id", (req: Request<{ id: string }>, res: Response) => {
+ticketRouter.delete("/:id", (req: Request<{ id: string }>, res: Response) => {
   const { id } = req.params;
 
   if (!id) {
@@ -83,4 +83,4 @@ customerRouter.delete("/:id", (req: Request<{ id: string }>, res: Response) => {
   });
 });
 
-export default customerRouter;
+export default ticketRouter;

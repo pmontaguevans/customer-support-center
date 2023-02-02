@@ -30,6 +30,7 @@ function App() {
     status: "Available",
     hasActiveTicket: null,
   });
+  
 
   const { agents }: any = useLoaderData();
 

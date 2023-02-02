@@ -48,7 +48,8 @@ Actor (Customer):
 - When clicking "post ticket" button you will be redirected to a thank you page.
 
 Actor (Support Agent / Customer Support):
-Tickets will be added to the dropdown list
+- Navigate back to localhost:3000
+- Created ticket will be shown in the dropdown list
 
 ------------------
 It took me roughly ~16 hours to do this. Given limitations due to work and other circumstances,
