@@ -15,8 +15,9 @@ First of all you need to add env files to corresponding folders. In the env file
 
 ### `DB_NAME=mongodb+srv://admin:admin@cluster0.vjwtamg.mongodb.net/customer-support-center?retryWrites=true&w=majority`
 
-then run the following command:
+then run the following commands:
 
+### `npm i`
 ### `npm run dev`
 
 Secondly, add the following properties in the env file in UI folder:
@@ -25,7 +26,9 @@ Secondly, add the following properties in the env file in UI folder:
 
 ### `APP_BASE_URL=http://localhost:3000/`
 
-then run the following command:
+then run the following commands:
+
+### `npm i`
 
 ### `npm start`
 
@@ -47,10 +50,15 @@ Actor (Customer):
 Actor (Support Agent / Customer Support):
 Tickets will be added to the dropdown list
 
-### Todo
+------------------
+It took me roughly ~16 hours to do this. Given limitations due to work and other circumstances,
+the following scenarios are left to do.
 
-Clear inputs,
+### Todo
+Clear inputs and validations in frontend,
 Default select value after resolved is done
-Remove ticket from ticket list
+Remove ticket from ticket list / update ticket list and show ticket resolved
+Handle automatically assigned ticket (could use websockets)
 Unit tests
-Type variables better
+Improved typing
+More refactoring
