@@ -7,9 +7,25 @@ This application is aimed to showcase a customer support center where customers 
 Mern stack with Typescript is used.
 TypeScript, NodeJS w/ express, React & MongoDB
 
+## Endpoints
+
+# Support Agents
+
+GET /api/v1/agents
+GET /api/v1/agents/:id
+POST /api/v1/agents
+PUT /api/v1/agents/:id
+DELETE /api/v1/agents/:id
+
+# Tickets
+
+GET /api/v1/tickets
+POST /api/v1/tickets
+DELETE /api/v1/tickets/:id
+
 ## Run the application
 
-First of all you need to add env files to corresponding folders. In the env file in the api folder, add the following properties:
+Before running the application, you need to add env files to corresponding folders (/api | /ui). In the env file in the api folder, add the following properties:
 
 ### `PORT=4000`
 
