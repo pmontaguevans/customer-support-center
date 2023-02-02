@@ -26,12 +26,15 @@ export default function Agent() {
   const { agent, tickets, agentId }: any = useLoaderData();
   const [ticketId, setTicketId]: any = React.useState(null);
   const [ticketList, setTicketList]: any = React.useState(tickets);
+  const selectValue: any = React.useRef("Select");
 
-  const contact = {
-    avatar:
-      "https://this-person-does-not-exist.com/img/avatar-d0412740e4eb47cd45d4769daf900ebd.jpg",
+  const agentDetails = {
+    avatar: "https://placekitten.com/g/200/200",
   };
   const handleChange = async (option: TicketOptions) => {
+    console.log(selectValue);
+    selectValue.current = option.title;
+
     const updatedData: any = {
       name: agent.name,
       ticketId: option._id,
@@ -58,6 +61,8 @@ export default function Agent() {
 
     await getTickets();
     setStatus({ status: "Available", hasActiveTicket: false });
+
+    reset();
   };
 
   const getAgent = async () => {
@@ -66,6 +71,10 @@ export default function Agent() {
 
   const getTickets = async () => {
     await api.get(`/tickets`);
+  };
+
+  const reset = () => {
+    selectValue.current = "Select";
   };
 
   React.useEffect(() => {
@@ -82,12 +91,18 @@ export default function Agent() {
     getTickets();
   }, [agent.status, status.hasActiveTicket, tickets]);
 
+  React.useEffect(() => {}, [selectValue]);
+
   return (
     <>
       <h1>Agent details</h1>
       <div className="agent">
         <div>
-          <img alt="Some_alt_text" key={contact.avatar} src={contact.avatar} />
+          <img
+            alt="Some_alt_text"
+            key={agentDetails.avatar}
+            src={agentDetails.avatar}
+          />
         </div>
         <div className="agent__details">
           <div className="contact__details--status">
@@ -118,6 +133,7 @@ export default function Agent() {
                   options={ticketList.tickets}
                   getOptionLabel={(ticket: TicketOptions) => ticket.title}
                   getOptionValue={(ticket: TicketOptions) => ticket._id}
+                  placeholder="Select"
                   //@ts-ignore
                   onChange={handleChange}
                   isDisabled={status.hasActiveTicket}
