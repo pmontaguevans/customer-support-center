@@ -1,13 +1,13 @@
 # Customer Support Center
 
-This application is aimed to showcase a customer support center where customers can return products through a form, customer support can add, edit and remove Support Agents and be able to assign Support agents to a specific case.
+This application is aimed to showcase a customer support center where customers can return products through a form, customer support can add, edit and remove Support Agents and be able to assign Support agents to a specific ticket. Support agents / customer support can resolve tickets.
 
 ## Tech stack
 
 Mern stack with Typescript is used.
 TypeScript, NodeJS w/ express, React & MongoDB
 
-## Run the application (Backend is run on port 4000 and the UI on port 3000)
+## Run the application
 
 First of all you need to add env files to corresponding folders. In the env file in the api folder, add the following properties:
 
@@ -18,6 +18,7 @@ First of all you need to add env files to corresponding folders. In the env file
 then run the following commands:
 
 ### `npm i`
+
 ### `npm run dev`
 
 Secondly, add the following properties in the env file in UI folder:
@@ -31,6 +32,8 @@ then run the following commands:
 ### `npm i`
 
 ### `npm start`
+
+Backend is run on port 4000 and the UI on port 3000.
 
 ## Navigation
 
@@ -48,16 +51,19 @@ Actor (Customer):
 - When clicking "post ticket" button you will be redirected to a thank you page.
 
 Actor (Support Agent / Customer Support):
+
 - Navigate back to localhost:3000
 - Created ticket will be shown in the dropdown list
 
-------------------
+---
+
 It took me roughly ~16 hours to do this. Given limitations due to work and other circumstances,
 the following scenarios are left to do.
 
 ### Todo
-Clear inputs and validations in frontend,
-Handle automatically assigned ticket (could use websockets)
-Unit tests
-Improved typing
-More refactoring
+
+- Clear inputs and validations in frontend,
+- Handle automatically assigned ticket (could use websockets)
+- Unit tests
+- Improved typing
+- More refactoring
