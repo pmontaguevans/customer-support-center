@@ -57,8 +57,6 @@ the following scenarios are left to do.
 
 ### Todo
 Clear inputs and validations in frontend,
-Default select value after resolved is done
-Remove ticket from ticket list / update ticket list and show ticket resolved
 Handle automatically assigned ticket (could use websockets)
 Unit tests
 Improved typing
