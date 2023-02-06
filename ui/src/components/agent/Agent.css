@@ -74,3 +74,24 @@
   border-radius: 30px;
   width: 150px;
 }
+
+.agent__status {
+  display: flex;
+  align-items: center;
+}
+.agent__status .red {
+  background-color: red;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-left: 10px;
+}
+.agent__status .green {
+  background-color: green;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-left: 10px;
+}

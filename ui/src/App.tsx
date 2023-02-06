@@ -1,42 +1,50 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Outlet,
   useNavigation,
   useLoaderData,
   redirect,
 } from "react-router-dom";
-import api from "./axios";
+import api, { Agent, Ticket } from "./axios";
 import Sidebar from "./components/sidebar/Sidebar";
 import "./App.css";
 
+type FormData = {
+  [k: string]: any;
+  name: string;
+  status: boolean | false;
+  ticketId: string | null;
+};
+
+type LoaderData = {
+  agents: Agent[];
+};
+
 export async function action({ request }: any) {
   const formData = await request.formData();
-  const updates = Object.fromEntries(formData);
-  const { data } = await api.post("/agents", { name: updates.name });
+  const updates: FormData = Object.fromEntries(formData) as FormData;
+  const data: Agent = await api.agents.create(updates);
   return redirect(`/agents/${data._id}`);
 }
 
 export async function loader() {
   try {
-    const { data } = await api.get("/agents");
-    return { agents: data.agents };
+    const agents = await api.agents.getAll();
+    return { agents };
   } catch (err: any) {
     throw new Error(err);
   }
 }
 function App() {
+  const [loading, setLoading] = useState(true);
   const navigation = useNavigation();
-  const [status, setStatus] = React.useState({
-    status: "Available",
+
+  const { agents }: LoaderData = useLoaderData() as LoaderData;
+  const [status, setStatus] = useState({
+    label: "Available",
     hasActiveTicket: null,
   });
-  
 
-  const { agents }: any = useLoaderData();
-
-  React.useEffect(() => {
-    console.log(status);
-  }, [status]);
   return (
     <div className="page">
       <Sidebar agents={agents} status={status} />

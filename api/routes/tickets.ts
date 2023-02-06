@@ -6,7 +6,7 @@ const ticketRouter = express.Router();
 ticketRouter.get("/", (req: Request, res: Response) => {
   Ticket.find({}, (err: any, tickets: any[]) => {
     try {
-      res.status(200).send({ tickets });
+      res.status(200).send(tickets);
     } catch (err: any) {
       res.status(500).send({
         message: err.message || "An error occured while retrieving tickets.",
@@ -27,7 +27,7 @@ ticketRouter.post("/", (req: Request, res: Response) => {
   } = req.body;
 
   if (!title || !description || !customerName || !email || !productNo) {
-    res.status(400).send({ message: "Name field cannot be empty." });
+    res.status(400).send({ message: "Fields cannot be empty." });
     return;
   }
 
@@ -63,6 +63,51 @@ ticketRouter.post("/", (req: Request, res: Response) => {
   });
 });
 
+ticketRouter.get("/:id", (req: Request, res: Response) => {
+  Ticket.findOne({ _id: req.params.id }, (err: any, ticket: any) => {
+    try {
+      res.status(200).send(ticket);
+    } catch (err: any) {
+      res.status(500).send({
+        message: err.message || "An error occured while retrieving ticket.",
+      });
+    }
+  });
+});
+
+ticketRouter.put("/:id", (req: Request<{ id: string }>, res: Response) => {
+  if (!req.body) {
+    return res.status(400).send({ message: "Cannot update with empty data" });
+  }
+
+  const { id } = req.params;
+
+  Ticket.findByIdAndUpdate(
+    { _id: id },
+    req.body,
+    { new: true },
+    (err: any, doc: any) => {
+      try {
+        if (!doc) {
+          res.status(404).send({
+            message: "Ticket not found..",
+          });
+        } else {
+          console.log("here", doc);
+          return res.send({
+            ticket: doc,
+            message: "Ticket was successfully updated.",
+          });
+        }
+      } catch (err) {
+        return res
+          .status(500)
+          .send({ message: "Error updating ticket with id: " + id });
+      }
+    }
+  );
+});
+
 ticketRouter.delete("/:id", (req: Request<{ id: string }>, res: Response) => {
   const { id } = req.params;
 
@@ -75,7 +120,7 @@ ticketRouter.delete("/:id", (req: Request<{ id: string }>, res: Response) => {
       if (!data) {
         res.status(404).send({ message: "Ticket not found!" });
       } else {
-        res.status(201).send("Ticket deleted!");
+        res.status(201).send({ data, message: "Ticket deleted!" });
       }
     } catch (err) {
       res.status(500).send({ message: "Could not delete ticket.." });

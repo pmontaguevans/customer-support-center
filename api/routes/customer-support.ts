@@ -7,7 +7,7 @@ const adminRouter = express.Router();
 adminRouter.get("/", (req: Request, res: Response) => {
   Agent.find({}, (err: any, agents: IAgent[]) => {
     try {
-      res.status(200).send({ agents });
+      res.status(200).send(agents);
     } catch (err: any) {
       res.status(500).send({
         message: err.message || "An error occured while retrieving agents.",
@@ -19,7 +19,7 @@ adminRouter.get("/", (req: Request, res: Response) => {
 adminRouter.get("/:id", (req: Request, res: Response) => {
   Agent.findOne({ _id: req.params.id }, (err: any, agent: IAgent) => {
     try {
-      res.status(200).send({ agent });
+      res.status(200).send(agent);
     } catch (err: any) {
       res.status(500).send({
         message: err.message || "An error occured while retrieving agents.",
@@ -61,40 +61,31 @@ adminRouter.post("/", (req: Request, res: Response) => {
 });
 
 adminRouter.put("/:id", (req: Request<{ id: string }>, res: Response) => {
-  const { id } = req.params;
-  const { name, ticketId } = req.body;
-  let agentStatus: boolean = false;
-
-  if (req.body.ticketId) {
-    agentStatus = true;
-  }
-
   if (!req.body) {
     return res.status(400).send({ message: "Cannot update with empty data" });
   }
 
-  let updateAgent: IAgent;
+  const { id } = req.params;
 
-  updateAgent = {
-    name,
-    ticketId: ticketId || null,
-    status: agentStatus,
-  };
-
-  Agent.findOneAndUpdate(
-    { _id: { $gte: id } },
-    updateAgent,
-    (err: any, data: IAgent) => {
+  Agent.findByIdAndUpdate(
+    { _id: id },
+    req.body,
+    { new: true },
+    (err: any, doc: any) => {
       try {
-        if (!data) {
+        if (!doc) {
           res.status(404).send({
             message: "Agent not found..",
           });
         } else {
-          res.send({ data, message: "Agent was successfully updated." });
+          console.log("here", doc);
+          return res.send({
+            agent: doc,
+            message: "Agent was successfully updated.",
+          });
         }
       } catch (err) {
-        res
+        return res
           .status(500)
           .send({ message: "Error updating agent with id: " + id });
       }

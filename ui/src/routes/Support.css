@@ -32,6 +32,7 @@ form {
 .form__row p.action__buttons {
   flex-direction: column;
 }
+
 .form__row label {
   display: flex;
   align-items: center;
@@ -44,4 +45,11 @@ form {
 
 .form__row span {
   width: 200px;
+}
+
+#customer-form button[disabled] {
+  background: #eee;
+  border: 1px solid #eee;
+  color: black;
+  cursor: auto;
 }

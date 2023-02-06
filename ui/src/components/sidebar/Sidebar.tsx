@@ -1,18 +1,34 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { NavLink, Form, useNavigate } from "react-router-dom";
-import api from "../../axios";
+import api, { Agent } from "../../axios";
 import "./Sidebar.css";
 
-const Sidebar = ({ agents, status }: any) => {
-  const navigate = useNavigate();
-
-  const getAgents = async () => {
-    await api.get("/agents");
+type Props = {
+  agents: Agent[];
+  status: {
+    label: string;
+    hasActiveTicket: boolean | null;
   };
-  React.useEffect(() => {
+};
+
+type ClassNameProps = {
+  isActive: boolean;
+  isPending: boolean;
+};
+
+const Sidebar = ({ agents }: Props) => {
+  const navigate = useNavigate();
+  const getAgents = async () => {
+    const data = await api.agents.getAll();
+    console.log("data", data);
+  };
+
+  const [agentName, setAgentName] = React.useState("");
+  const handleChange = (e: any) => setAgentName(e.target.value);
+
+  useEffect(() => {
     getAgents();
-    console.log("status", status);
-  }, [status.hasActiveTicket]);
+  }, []);
 
   return (
     <div className="sidebar">
@@ -28,10 +44,14 @@ const Sidebar = ({ agents, status }: any) => {
               aria-label="name"
               type="text"
               name="name"
-              defaultValue=""
+              value={agentName}
+              //@ts-ignore
+              onChange={handleChange}
             />
           </p>
-          <button type="submit">Add Agent</button>
+          <button disabled={!agentName} type="submit">
+            Add Agent
+          </button>
           <hr />
         </Form>
       </div>
@@ -40,19 +60,19 @@ const Sidebar = ({ agents, status }: any) => {
 
         {agents.length ? (
           <ul>
-            {agents.map((agent: any) => (
+            {agents.map((agent: Agent) => (
               <li key={agent._id}>
                 <NavLink
                   to={`agents/${agent._id}`}
-                  className={({ isActive, isPending }: any) =>
+                  className={({ isActive, isPending }: ClassNameProps) =>
                     isActive ? "active" : isPending ? "pending" : ""
                   }
                 >
                   {agent.name ? <>{agent.name}</> : <i>No Name</i>}
                 </NavLink>
-                <span>
-                  {status.hasActiveTicket ? status.status : "Available"}
-                </span>
+                {/* <span>
+                  {agent.status && agent.ticketId ? status.label : "Available"}
+                </span> */}
               </li>
             ))}
           </ul>

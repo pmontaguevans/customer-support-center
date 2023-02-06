@@ -45,6 +45,13 @@
   width: 340px;
 }
 
+.form__add button[disabled] {
+  background: #eee;
+  border: 1px solid #eee;
+  color: black;
+  cursor: auto;
+}
+
 .isActive {
   background-color: #3a62f4;
 }

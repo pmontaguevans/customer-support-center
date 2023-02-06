@@ -1,6 +1,6 @@
 import express, { Express } from "express";
 import { createServer } from "http";
-import { Server } from "socket.io";
+// import { Server } from "socket.io";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
@@ -21,7 +21,7 @@ const DB: string = process.env.DB_NAME!.toString();
 
 const app: Express = express();
 const server = createServer(app);
-const io = new Server(server);
+// const io = new Server(server);
 
 // TODO: refactor and integrate handshakes with client
 // io.on("connection", (socket) => {

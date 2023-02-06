@@ -1,12 +1,16 @@
 import { Form, useLoaderData, redirect, useNavigate } from "react-router-dom";
-import api from "../../../axios";
+import api, { Agent } from "../../../axios";
 import "./Actions.css";
 
+type LoaderData = {
+  agent: Agent;
+};
+
 async function updateAgent(agentId: any, updates: any) {
+  console.log(agentId, updates);
   try {
     if (agentId) {
-      const { data } = await api.put(`/agents/${agentId}`, updates);
-      return data;
+      await api.agents.update(agentId, updates);
     }
   } catch (err: any) {
     throw new Error(err);
@@ -26,7 +30,7 @@ export async function action({ request, params }: any) {
 }
 
 export default function EditAgent() {
-  const agent: any = useLoaderData();
+  // const { agent }: LoaderData = useLoaderData() as LoaderData;
   const navigate = useNavigate();
 
   return (
@@ -41,7 +45,6 @@ export default function EditAgent() {
             aria-label="name"
             type="text"
             name="name"
-            defaultValue={agent.name}
           />
         </p>
         <hr />

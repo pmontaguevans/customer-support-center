@@ -1,27 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
 import { Form, redirect, useNavigate } from "react-router-dom";
-import api from "../axios";
-import "../App.css";
+import api, { Ticket } from "../axios";
 import "./Support.css";
+
+type FormData = {
+  [k: string]: any;
+  title: string;
+  description: string;
+  customerName: string;
+  email: string;
+  productNo: string;
+};
 
 export async function action({ request }: any) {
   const formData = await request.formData();
-  const updates = Object.fromEntries(formData);
-  const { data } = await api.post("/customer", updates);
-  return redirect(`/t/${data._id}`);
-}
+  const updates: FormData = Object.fromEntries(formData) as FormData;
+  await api.tickets.create(updates);
 
-// export async function loader() {
-//   try {
-//     const { data } = await api.get("/customer");
-//     return { tickets: data.tickets };
-//   } catch (err: any) {
-//     throw new Error(err);
-//   }
-// }
+  return redirect("/");
+}
 
 const Support = () => {
   const navigate = useNavigate();
+  const [formValues, setFormValues] = useState({
+    customerName: "",
+    email: "",
+    productNo: "",
+    title: "",
+    description: "",
+  });
+
+  const handleChange = (e: any) => {
+    const value = e.target.value;
+    setFormValues({
+      ...formValues,
+      [e.target.name]: value,
+    });
+  };
 
   return (
     <Form method="post" id="customer-form">
@@ -37,6 +52,8 @@ const Support = () => {
                 aria-label="customerName"
                 type="text"
                 name="customerName"
+                value={formValues.customerName}
+                onChange={handleChange}
               />
             </label>
           </p>
@@ -47,8 +64,10 @@ const Support = () => {
                 className="input"
                 placeholder="Your email"
                 aria-label="email"
-                type="text"
+                type="email"
                 name="email"
+                value={formValues.email}
+                onChange={handleChange}
               />
             </label>
           </p>
@@ -61,6 +80,8 @@ const Support = () => {
                 aria-label="title"
                 type="text"
                 name="title"
+                value={formValues.title}
+                onChange={handleChange}
               />
             </label>
           </p>
@@ -73,6 +94,8 @@ const Support = () => {
                 aria-label="Product Number"
                 type="text"
                 name="productNo"
+                value={formValues.productNo}
+                onChange={handleChange}
               />
             </label>
           </p>
@@ -85,12 +108,25 @@ const Support = () => {
                 aria-label="Desription"
                 name="description"
                 rows={6}
+                value={formValues.description}
+                onChange={handleChange}
               />
             </label>
           </p>
           <div>
             <p className="action__buttons">
-              <button type="submit">Post ticket</button>
+              <button
+                disabled={
+                  !formValues.customerName ||
+                  !formValues.description ||
+                  !formValues.title ||
+                  !formValues.productNo ||
+                  !formValues.email
+                }
+                type="submit"
+              >
+                Post ticket
+              </button>
             </p>
           </div>
         </div>
