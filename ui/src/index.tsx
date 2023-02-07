@@ -5,13 +5,13 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App, { loader as rootLoader, action as rootAction } from "./App";
 import EditAgent, {
   action as editAction,
-} from "./components/agent/agent-actions/Edit";
+} from "./routes/agent/agent-actions/Edit";
 import Support, { action as ticketAction } from "./routes/Support";
 import AgentDetails, {
   loader as agentLoader,
   action as agentAction,
-} from "./components/agent/Agent";
-import { action as destroyAction } from "./components/agent/agent-actions/Delete";
+} from "./routes/agent/Agent";
+import { action as destroyAction } from "./routes/agent/agent-actions/Delete";
 import Index from "./components/Index";
 import ErrorPage from "./components/ErrorPage";
 import "./index.css";
