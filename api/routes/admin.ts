@@ -46,7 +46,7 @@ adminRouter.post("/", (req: Request, res: Response) => {
             res.status(200).send(agentDetails);
           } else {
             console.log("Error during record insertion : " + err);
-            throw Error(err);
+            throw new Error(err);
           }
         });
       } else {

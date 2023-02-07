@@ -9,7 +9,7 @@ TypeScript, NodeJS w/ express, React & MongoDB
 
 ## Endpoints
 
-# Support Agents
+## Support Agents
 
 GET /api/v1/agents
 GET /api/v1/agents/:id
@@ -17,7 +17,7 @@ POST /api/v1/agents
 PUT /api/v1/agents/:id
 DELETE /api/v1/agents/:id
 
-# Tickets
+## Tickets
 
 GET /api/v1/tickets
 POST /api/v1/tickets

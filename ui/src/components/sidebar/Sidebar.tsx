@@ -1,14 +1,10 @@
-import React, { useEffect, useRef } from "react";
+import React, { useState } from "react";
 import { NavLink, Form, useNavigate } from "react-router-dom";
-import api, { Agent } from "../../axios";
+import { Agent } from "../../axios";
 import "./Sidebar.css";
 
 type Props = {
   agents: Agent[];
-  status: {
-    label: string;
-    hasActiveTicket: boolean | null;
-  };
 };
 
 type ClassNameProps = {
@@ -18,17 +14,9 @@ type ClassNameProps = {
 
 const Sidebar = ({ agents }: Props) => {
   const navigate = useNavigate();
-  const getAgents = async () => {
-    const data = await api.agents.getAll();
-    console.log("data", data);
-  };
 
-  const [agentName, setAgentName] = React.useState("");
+  const [agentName, setAgentName] = useState<string>("");
   const handleChange = (e: any) => setAgentName(e.target.value);
-
-  useEffect(() => {
-    getAgents();
-  }, []);
 
   return (
     <div className="sidebar">
@@ -57,10 +45,9 @@ const Sidebar = ({ agents }: Props) => {
       </div>
       <nav>
         <h3>Current agents ({agents.length})</h3>
-
-        {agents.length ? (
-          <ul>
-            {agents.map((agent: Agent) => (
+        <ul>
+          {agents &&
+            agents.map((agent: Agent) => (
               <li key={agent._id}>
                 <NavLink
                   to={`agents/${agent._id}`}
@@ -70,17 +57,9 @@ const Sidebar = ({ agents }: Props) => {
                 >
                   {agent.name ? <>{agent.name}</> : <i>No Name</i>}
                 </NavLink>
-                {/* <span>
-                  {agent.status && agent.ticketId ? status.label : "Available"}
-                </span> */}
               </li>
             ))}
-          </ul>
-        ) : (
-          <p className="no__agents">
-            <i>No agents</i>
-          </p>
-        )}
+        </ul>
       </nav>
     </div>
   );

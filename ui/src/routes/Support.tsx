@@ -10,6 +10,7 @@ type FormData = {
   customerName: string;
   email: string;
   productNo: string;
+  agentId: string | null;
 };
 
 export async function action({ request }: any) {
@@ -22,12 +23,13 @@ export async function action({ request }: any) {
 
 const Support = () => {
   const navigate = useNavigate();
-  const [formValues, setFormValues] = useState({
+  const [formValues, setFormValues] = useState<Ticket>({
     customerName: "",
     email: "",
     productNo: "",
     title: "",
     description: "",
+    agentId: null,
   });
 
   const handleChange = (e: any) => {

@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import {
   Outlet,
   useNavigation,
   useLoaderData,
   redirect,
 } from "react-router-dom";
-import api, { Agent, Ticket } from "./axios";
+import api, { Agent } from "./axios";
 import Sidebar from "./components/sidebar/Sidebar";
 import "./App.css";
 
 type FormData = {
   [k: string]: any;
   name: string;
-  status: boolean | false;
+  assignedToTicket: boolean;
   ticketId: string | null;
 };
 
@@ -36,23 +36,17 @@ export async function loader() {
   }
 }
 function App() {
-  const [loading, setLoading] = useState(true);
   const navigation = useNavigation();
-
   const { agents }: LoaderData = useLoaderData() as LoaderData;
-  const [status, setStatus] = useState({
-    label: "Available",
-    hasActiveTicket: null,
-  });
 
   return (
     <div className="page">
-      <Sidebar agents={agents} status={status} />
+      <Sidebar agents={agents} />
       <div
         className={navigation.state === "loading" ? "loading" : ""}
         id="detail"
       >
-        <Outlet context={{ setStatus, status }} />
+        <Outlet />
       </div>
     </div>
   );

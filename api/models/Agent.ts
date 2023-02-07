@@ -14,7 +14,7 @@ export const AgentSchema = new Schema(
       ref: "Ticket",
       default: null,
     },
-    status: {
+    assignedToTicket: {
       type: Boolean,
       default: false,
     },

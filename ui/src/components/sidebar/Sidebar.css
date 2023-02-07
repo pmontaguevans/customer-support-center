@@ -106,3 +106,18 @@ nav ul li a:hover {
   color: #3a62f4;
   background-color: #e3e3e3;
 }
+
+.red,
+.green {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-left: 10px;
+}
+.agent__status .red {
+  background-color: red;
+}
+.agent__status .green {
+  background-color: green;
+}

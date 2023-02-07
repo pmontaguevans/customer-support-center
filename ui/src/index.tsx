@@ -15,7 +15,6 @@ import { action as destroyAction } from "./components/agent/agent-actions/Delete
 import Index from "./components/Index";
 import ErrorPage from "./components/ErrorPage";
 import "./index.css";
-import ThankYou from "./components/ThankYou";
 
 const router = createBrowserRouter([
   {

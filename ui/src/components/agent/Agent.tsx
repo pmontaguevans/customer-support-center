@@ -1,13 +1,6 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
-import Select, {
-  OptionProps,
-  SingleValue,
-  ValueContainerProps,
-  Props as SelectProps,
-  GroupBase,
-  components,
-} from "react-select";
-import { useLoaderData, Form, useOutletContext } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import Select from "react-select";
+import { useLoaderData, Form } from "react-router-dom";
 import api, { Agent, Ticket } from "../../axios";
 import "./Agent.css";
 
@@ -34,22 +27,14 @@ type LoaderData = {
   agentId: string;
 };
 
-type OutletContext = {
-  setStatus: Function;
-  status: {
-    label: string;
-    hasActiveTicket: boolean;
-  };
-};
-
 interface AgentFormData {
   name: string;
   ticketId: string | null;
-  status: boolean;
+  assignedToTicket: boolean;
 }
 
 export default function AgentDetails() {
-  const { agent, agentId }: LoaderData = useLoaderData() as LoaderData;
+  const { agent, tickets, agentId }: LoaderData = useLoaderData() as LoaderData;
   const [localAgent, setLocalAgent]: any = useState(agent);
   const [ticketId, setTicketId]: any = useState(agent?.ticketId);
   const [filterTickets, setFilteredTickets]: any = useState([]);
@@ -58,22 +43,20 @@ export default function AgentDetails() {
     const updatedData: AgentFormData = {
       name: agent.name,
       ticketId: option._id,
-      status: true,
+      assignedToTicket: true,
     };
 
     setTicketId(option._id);
 
     await updateAgent(updatedData);
-    const data = await getAgent();
+    await getAgent();
     await api.tickets.update(option._id, { agentId });
-    setLocalAgent(data);
 
     const newTicketsArr = filterTickets.filter(
-      (ticket: any) => ticket._id !== option._id
+      (ticket: Ticket) => ticket._id !== option._id
     );
 
     setFilteredTickets(newTicketsArr);
-    await api.tickets.getOne(option._id);
   };
 
   const updateAgent = async (updatedData: AgentFormData) => {
@@ -83,13 +66,13 @@ export default function AgentDetails() {
   const resolveTicket = async () => {
     await api.tickets.update(ticketId, { resolved: true });
 
-    const updatedData: AgentFormData = {
+    const updateAgentData: AgentFormData = {
       name: agent.name,
       ticketId: null,
-      status: false,
+      assignedToTicket: false,
     };
 
-    await updateAgent(updatedData);
+    await updateAgent(updateAgentData);
     await getAgent();
   };
 
@@ -105,21 +88,18 @@ export default function AgentDetails() {
   useEffect(() => {
     getAgent();
     getTickets();
-  }, [agent.status, localAgent?.status, filterTickets]);
+  }, [agent.assignedToTicket, localAgent?.assignedToTicket, filterTickets]);
 
   useEffect(() => {
     const data = async () => {
-      const tickets: Ticket[] = await api.tickets.getAll();
       const filteredTickets = tickets.filter(
-        (ticket: any) =>
+        (ticket: Ticket) =>
           (ticket.agentId === agentId || ticket.agentId === null) &&
-          ticket.resolved === false
+          !ticket.resolved
       );
 
       setFilteredTickets(filteredTickets);
-
-      const agent = await api.agents.getOne(agentId);
-      return { tickets, agent };
+      return { tickets };
     };
     data();
   }, []);
@@ -133,10 +113,10 @@ export default function AgentDetails() {
             <h2 className="contact__details--heading2">
               {agent ? <>{agent.name}</> : <i>No Name</i>}{" "}
             </h2>
-
             <span className="agent__status">
-              agent.status:
-              <span className={localAgent?.status ? "red" : "green"}></span>
+              <span
+                className={localAgent?.assignedToTicket ? "red" : "green"}
+              ></span>
             </span>
           </div>
           <div className="form__actions">
@@ -154,7 +134,7 @@ export default function AgentDetails() {
             <div>
               <h4>Ticket list</h4>
 
-              {/* Value should be set to Select after ticket is resolved */}
+              {/* TODO: Value should be set to Select after ticket is resolved */}
               <div className="form__select">
                 <Select
                   id="ticketForm"
@@ -167,7 +147,7 @@ export default function AgentDetails() {
                   isSearchable={false}
                   //@ts-ignore
                   defaultValue="Select"
-                  isDisabled={!filterTickets || localAgent?.status}
+                  isDisabled={localAgent?.assignedToTicket}
                 />
               </div>
             </div>

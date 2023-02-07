@@ -1,6 +1,5 @@
 /**
- * @title https://gist.github.com/JaysonChiang/fa704307bacffe0f17d51acf6b1292fc
- * @description This file was copied from gist above with some additional features
+ * @description https://gist.github.com/JaysonChiang/fa704307bacffe0f17d51acf6b1292fc
  */
 
 import axios, { AxiosError, AxiosResponse } from "axios";
@@ -8,7 +7,7 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 export interface Agent extends OptionalParams {
   [k: string]: any;
   name: string;
-  status: boolean | false;
+  assignedToTicket: boolean;
   ticketId: string | null;
 }
 
@@ -19,6 +18,7 @@ export interface Ticket extends OptionalParams {
   customerName: string;
   email: string;
   productNo: string;
+  agentId: string | null;
 }
 
 export interface OptionalParams {
@@ -34,8 +34,7 @@ axios.interceptors.request.use((config) => {
 axios.interceptors.response.use(
   (res: AxiosResponse) => res,
   (error: AxiosError) => {
-    const { data, status, config } = error.response!;
-    console.log("data", data);
+    const { data, status } = error.response!;
 
     switch (status) {
       case 400:
@@ -75,13 +74,16 @@ const agents = {
 
 const tickets = {
   getAll: () => request.get<Ticket[]>("/tickets"),
+  getOne: (id: string) => request.get<Ticket>(`/tickets/${id}`),
   create: (data: Ticket) => request.post<Ticket>("/tickets", data),
-  getOne: (id: string) => request.get<Agent>(`/tickets/${id}`),
-  update: (id: string, data: any) => request.put<Agent>(`/tickets/${id}`, data),
+  update: (id: string, data: any) =>
+    request.put<Ticket>(`/tickets/${id}`, data),
   delete: (id: string) => request.delete<Ticket>(`/tickets/${id}`),
 };
 
-export default {
+const api = {
   agents,
   tickets,
 };
+
+export default api;

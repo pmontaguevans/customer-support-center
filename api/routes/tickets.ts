@@ -1,10 +1,11 @@
 import express, { Request, Response } from "express";
 import Ticket from "../models/Ticket";
+import { ITicket } from "../services/interfaces";
 
 const ticketRouter = express.Router();
 
 ticketRouter.get("/", (req: Request, res: Response) => {
-  Ticket.find({}, (err: any, tickets: any[]) => {
+  Ticket.find({}, (err: any, tickets: ITicket[]) => {
     try {
       res.status(200).send(tickets);
     } catch (err: any) {
@@ -38,7 +39,7 @@ ticketRouter.post("/", (req: Request, res: Response) => {
     email,
     productNo,
     resolved,
-    agentId,
+    agentId: agentId || null,
   });
 
   Ticket.exists({ productNo }, (err: any, doc: any) => {
@@ -64,7 +65,7 @@ ticketRouter.post("/", (req: Request, res: Response) => {
 });
 
 ticketRouter.get("/:id", (req: Request, res: Response) => {
-  Ticket.findOne({ _id: req.params.id }, (err: any, ticket: any) => {
+  Ticket.findOne({ _id: req.params.id }, (err: any, ticket: ITicket) => {
     try {
       res.status(200).send(ticket);
     } catch (err: any) {

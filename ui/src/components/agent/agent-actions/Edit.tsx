@@ -1,10 +1,6 @@
-import { Form, useLoaderData, redirect, useNavigate } from "react-router-dom";
-import api, { Agent } from "../../../axios";
+import { Form, redirect, useNavigate } from "react-router-dom";
+import api from "../../../axios";
 import "./Actions.css";
-
-type LoaderData = {
-  agent: Agent;
-};
 
 async function updateAgent(agentId: any, updates: any) {
   console.log(agentId, updates);
@@ -30,7 +26,6 @@ export async function action({ request, params }: any) {
 }
 
 export default function EditAgent() {
-  // const { agent }: LoaderData = useLoaderData() as LoaderData;
   const navigate = useNavigate();
 
   return (
