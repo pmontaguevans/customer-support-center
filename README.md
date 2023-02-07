@@ -11,17 +11,19 @@ TypeScript, NodeJS w/ express, React & MongoDB
 
 ## Support Agents
 
-GET /api/v1/agents
-GET /api/v1/agents/:id
-POST /api/v1/agents
-PUT /api/v1/agents/:id
-DELETE /api/v1/agents/:id
+- GET /api/v1/agents
+- GET /api/v1/agents/:id
+- POST /api/v1/agents
+- PUT /api/v1/agents/:id
+- DELETE /api/v1/agents/:id
 
 ## Tickets
 
-GET /api/v1/tickets
-POST /api/v1/tickets
-DELETE /api/v1/tickets/:id
+- GET /api/v1/tickets
+- GET /api/v1/tickets/:id
+- POST /api/v1/tickets
+- PUT /api/v1/tickets/:id
+- DELETE /api/v1/tickets/:id
 
 ## Run the application
 
@@ -33,7 +35,7 @@ Before running the application, you need to add env files to corresponding folde
 
 then run the following commands:
 
-### `npm i`
+### `npm install`
 
 ### `npm run dev`
 
@@ -45,7 +47,7 @@ Secondly, add the following properties in the env file in UI folder:
 
 then run the following commands:
 
-### `npm i`
+### `npm install`
 
 ### `npm start`
 
@@ -78,7 +80,7 @@ the following scenarios are left to do.
 
 ### Todo
 
-- Clear inputs and validations in frontend,
+- Clear inputs and validations in frontend
 - Handle automatically assigned ticket (could use websockets)
 - Unit tests
 - Improved typing
